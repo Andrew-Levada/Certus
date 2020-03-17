@@ -65,7 +65,7 @@ public class LearnFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        RecyclerBasicAdapter adapter = new RecyclerBasicAdapter(list);
+        RecyclerBasicAdapter adapter = new RecyclerBasicAdapter(recyclerView, list);
         recyclerView.setAdapter(adapter);
     }
 

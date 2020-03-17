@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrewlevada.certus.logic.lessons.RecyclableLesson;
@@ -15,8 +16,27 @@ import java.util.ArrayList;
 public class RecyclerBasicAdapter extends RecyclerView.Adapter<RecyclerBasicAdapter.BasicViewHolder> {
     private ArrayList<RecyclableLesson> dataset;
 
-    public RecyclerBasicAdapter(ArrayList<RecyclableLesson> dataset) {
+    public RecyclerBasicAdapter(RecyclerView recyclerView, final ArrayList<RecyclableLesson> dataset) {
         this.dataset = dataset;
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
+                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                        int position = viewHolder.getAdapterPosition();
+                        dataset.remove(position);
+                        notifyDataSetChanged();
+                    }
+                };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     @NonNull
