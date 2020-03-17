@@ -14,9 +14,30 @@
 
     <color name="colorError">#FF0000</color>
 
-    <color name="colorOnSurface">#666666</color>
+    <color name="colorOnSurface">#99000000</color>
+    <color name="colorOnSurfaceHeader">#DE000000</color>
 
     <color name="colorOnPrimary">#FFFFFFFF</color>
     <color name="colorOnPrimaryTransparent">#AAFFFFFF</color>
     <color name="colorOnSecondary">#FFFFFF</color>
+
+    <color name="colorDivider">#1D000000</color>
+
+    <array name="subjectColors">
+        <item subject="math">#EB5757</item>
+        <item subject="algebra">#EB5757</item>
+        <item subject="geometry">#2F80ED</item>
+        <item subject="it">#333333</item>
+        <item subject="russian">#EB5757</item>
+        <item subject="literature">#27AE60</item>
+        <item subject="language">#FC427B</item>
+        <item subject="history">#F2C94C</item>
+        <item subject="social">#F2C94C</item>
+        <item subject="physics">#2D9CDB</item>
+        <item subject="chemistry">#F2994A</item>
+        <item subject="biology">#219653</item>
+        <item subject="geography">#9B51E0</item>
+        <item subject="astronomy">#9B51E0</item>
+        <item subject="other">@color/colorOnSurface</item>
+    </array>
 </resources>

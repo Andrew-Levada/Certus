@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+    private int currentHomeFragmentId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Loading default learn fragment screen
-        loadFragment(LearnFragment.newInstance());
+        loadHomeFragment(LearnFragment.newInstance(), R.id.navigation_button_learn);
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
 
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment = null;
+
+                if (currentHomeFragmentId == item.getItemId()) return false;
 
                 switch (item.getItemId()) {
                     case R.id.navigation_button_learn:
@@ -40,22 +43,19 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.navigation_button_account:
-                        //TODO: Add account fragment
+                        fragment = AccountFragment.newInstance();
                         break;
                 }
 
-                return loadFragment(fragment);
+                return loadHomeFragment(fragment, item.getItemId());
             }
         });
     }
 
-    /**
-     * Loads {@param fragment} to main container.
-     *
-     * @return True if succeeded.
-     */
-    private boolean loadFragment(Fragment fragment) {
+    private boolean loadHomeFragment(Fragment fragment, int id) {
         if (fragment != null) {
+            currentHomeFragmentId = id;
+
             FragmentTransaction transition = getSupportFragmentManager().beginTransaction();
             transition.setCustomAnimations(R.anim.fragment_open_enter, R.anim.fragment_close_exit);
             transition.replace(R.id.home_fragment_container, fragment);

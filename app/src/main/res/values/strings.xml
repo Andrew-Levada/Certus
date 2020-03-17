@@ -1,6 +1,24 @@
 <resources>
     <string name="app_name">Certus</string>
 
+    <string-array name="subjectNames">
+        <item subject="math">Математика</item>
+        <item subject="algebra">Алгебра</item>
+        <item subject="geometry">Геометрия</item>
+        <item subject="it">Информатика</item>
+        <item subject="russian">Русский язык</item>
+        <item subject="literature">Литература</item>
+        <item subject="language">Иностранный язык</item>
+        <item subject="history">История</item>
+        <item subject="social">Обществознание</item>
+        <item subject="physics">Физика</item>
+        <item subject="chemistry">Химия</item>
+        <item subject="biology">Биология</item>
+        <item subject="geography">География</item>
+        <item subject="astronomy">Астрономия</item>
+        <item subject="other">Другое</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

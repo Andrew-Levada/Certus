@@ -21,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
+        android:outlineProvider="none"
         app:itemIconTint="@color/main_navigation_colors"
         app:itemTextColor="@color/main_navigation_colors"
         app:itemRippleColor="@color/colorPrimaryLight"
