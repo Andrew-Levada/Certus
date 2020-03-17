@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:title="Учиться"
+        android:id="@+id/navigation_button_learn"
+        android:icon="@drawable/ic_notebook"
+        app:showAsAction="always|withText"/>
+    <item android:title="Учить"
+        android:id="@+id/navigation_button_teach"
+        android:icon="@drawable/ic_school"
+        app:showAsAction="always|withText"/>
+    <item android:title="Аккаунт"
+        android:id="@+id/navigation_button_account"
+        android:icon="@drawable/ic_person"
+        app:showAsAction="always|withText"/>
+</menu>
