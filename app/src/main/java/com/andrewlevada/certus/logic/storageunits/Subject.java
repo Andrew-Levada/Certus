@@ -1,8 +1,9 @@
-package com.andrewlevada.certus.logic.subjects;
+package com.andrewlevada.certus.logic.storageunits;
 
 import android.content.Context;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 
 import com.andrewlevada.certus.R;
 
@@ -26,6 +27,8 @@ public class Subject {
 
     public static final int CODE_OTHER = 14;
 
+    public static final int AMOUNT = 15;
+
     private int code;
     @ColorInt
     private int color;
@@ -44,9 +47,14 @@ public class Subject {
         return name;
     }
 
-    public Subject(Context context, int code) {
+    public Subject(@NonNull Context context, int code) {
         this.code = code;
         color = context.getResources().getIntArray(R.array.subjectColors)[code];
         name = context.getResources().getStringArray(R.array.subjectNames)[code];
+    }
+
+    @NonNull
+    public static String[] getStringArray(@NonNull Context context) {
+        return context.getResources().getStringArray(R.array.subjectNames);
     }
 }

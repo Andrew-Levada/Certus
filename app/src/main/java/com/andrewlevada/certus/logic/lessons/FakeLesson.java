@@ -2,7 +2,7 @@ package com.andrewlevada.certus.logic.lessons;
 
 import android.content.Context;
 
-import com.andrewlevada.certus.logic.subjects.Subject;
+import com.andrewlevada.certus.logic.storageunits.Subject;
 
 public class FakeLesson implements RecyclableLesson {
     private String title;

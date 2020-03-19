@@ -33,8 +33,4 @@
         <item name="android:layout_height">@dimen/mtrl_btn_height</item>
     </style>
 
-    <style name="TextView_LongSpacing">
-        <item name="android:letterSpacing">1.3</item>
-    </style>
-
 </resources>
