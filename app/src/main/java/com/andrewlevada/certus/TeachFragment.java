@@ -86,7 +86,7 @@ public class TeachFragment extends Fragment {
                         }
                     });
 
-                    hostActivity.fillBackdrop(R.layout.backdrop_content_learn, new SimpleInflater.OnViewInflated() {
+                    hostActivity.fillBackdrop(R.layout.backdrop_content_teach, new SimpleInflater.OnViewInflated() {
                         @Override
                         public void inflated(View view) {
                             fillBackdrop((ViewGroup) view);
