@@ -1,8 +1,12 @@
 package com.andrewlevada.certus.logic;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import android.content.Context;
 
+import androidx.annotation.NonNull;
+
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -16,6 +20,10 @@ public class User {
         return isAuthed;
     }
 
+    public FirebaseUser getFirebaseUser() {
+        return firebaseUser;
+    }
+
     public void auth() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -25,8 +33,16 @@ public class User {
         isAuthed = true;
     }
 
-    public void signOut() {
-        firebaseUser.delete(); // TODO: Process exceptions
+    public void signOut(Context context) {
+        AuthUI.getInstance()
+                .signOut(context)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // TODO: Give some feedback
+                    }
+                });
+
         firebaseUser = null;
         isAuthed = false;
     }

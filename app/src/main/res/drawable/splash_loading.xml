@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:drawable="@drawable/ic_loading">
+
+    <target android:name="path">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="500"
+                    android:propertyName="pathData"
+                    android:valueFrom="M110,180 110,180 110,180 110,180 110,180 110,180"
+                    android:valueTo="M110,180 40,180 40,180 40,180 40,180 40,180"
+                    android:valueType="pathType"
+                    android:interpolator="@anim/fast_out_slow_in_interpolator" />
+
+                <objectAnimator
+                    android:duration="500"
+                    android:startOffset="500"
+                    android:propertyName="pathData"
+                    android:valueFrom="M110,180 40,180 40,180 40,180 40,180 40,180"
+                    android:valueTo="M110,180 40,180 40,60 40,60 40,60 40,60"
+                    android:valueType="pathType"
+                    android:interpolator="@anim/fast_out_slow_in_interpolator" />
+
+                <objectAnimator
+                    android:duration="500"
+                    android:startOffset="1000"
+                    android:propertyName="pathData"
+                    android:valueFrom="M110,180 40,180 40,60 40,60 40,60 40,60"
+                    android:valueTo="M110,180 40,180 40,60 80,60 80,60 80,60"
+                    android:valueType="pathType"
+                    android:interpolator="@anim/fast_out_slow_in_interpolator" />
+
+                <objectAnimator
+                    android:duration="500"
+                    android:startOffset="1500"
+                    android:propertyName="pathData"
+                    android:valueFrom="M110,180 40,180 40,60 80,60 80,60 80,60"
+                    android:valueTo="M110,180 40,180 40,60 80,60 80,140 80,140"
+                    android:valueType="pathType"
+                    android:interpolator="@anim/fast_out_slow_in_interpolator" />
+
+                <objectAnimator
+                    android:duration="500"
+                    android:startOffset="2000"
+                    android:propertyName="pathData"
+                    android:valueFrom="M110,180 40,180 40,60 80,60 80,140 80,140"
+                    android:valueTo="M110,180 40,180 40,60 80,60 80,140 -10,140"
+                    android:valueType="pathType"
+                    android:interpolator="@anim/fast_out_slow_in_interpolator" />
+
+                <objectAnimator
+                    android:duration="500"
+                    android:startOffset="2500"
+                    android:propertyName="pathData"
+                    android:valueFrom="M110,180 40,180 40,60 80,60 80,140 -10,140"
+                    android:valueTo="M40,180 40,180 40,60 80,60 80,140 -10,140"
+                    android:valueType="pathType"
+                    android:interpolator="@anim/fast_out_slow_in_interpolator" />
+
+                <objectAnimator
+                    android:duration="500"
+                    android:startOffset="3000"
+                    android:propertyName="pathData"
+                    android:valueFrom="M40,180 40,180 40,60 80,60 80,140 -10,140"
+                    android:valueTo="M40,60 40,60 40,60 80,60 80,140 -10,140"
+                    android:valueType="pathType"
+                    android:interpolator="@anim/fast_out_slow_in_interpolator" />
+
+                <objectAnimator
+                    android:duration="500"
+                    android:startOffset="3500"
+                    android:propertyName="pathData"
+                    android:valueFrom="M40,60 40,60 40,60 80,60 80,140 -10,140"
+                    android:valueTo="M80,60 80,60 80,60 80,60 80,140 -10,140"
+                    android:valueType="pathType"
+                    android:interpolator="@anim/fast_out_slow_in_interpolator" />
+
+                <objectAnimator
+                    android:duration="500"
+                    android:startOffset="4000"
+                    android:propertyName="pathData"
+                    android:valueFrom="M80,60 80,60 80,60 80,60 80,140 -10,140"
+                    android:valueTo="M80,140 80,140 80,140 80,140 80,140 -10,140"
+                    android:valueType="pathType"
+                    android:interpolator="@anim/fast_out_slow_in_interpolator" />
+
+                <objectAnimator
+                    android:duration="500"
+                    android:startOffset="4500"
+                    android:propertyName="pathData"
+                    android:valueFrom="M80,140 80,140 80,140 80,140 80,140 -10,140"
+                    android:valueTo="M-10,140 -10,140 -10,140 -10,140 -10,140 -10,140"
+                    android:valueType="pathType"
+                    android:interpolator="@anim/fast_out_slow_in_interpolator" />
+            </set>
+        </aapt:attr>
+    </target>
+
+</animated-vector>

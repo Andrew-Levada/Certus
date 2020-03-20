@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
-    private static final long delay = 5000;
+    private static final long delay = 2400;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +30,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private void loadHomeActivity() {
-        Intent intent = new Intent(getApplicationContext(),
-                HomeActivity.class);
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
     }

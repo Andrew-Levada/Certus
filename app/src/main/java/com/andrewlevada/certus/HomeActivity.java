@@ -178,6 +178,7 @@ public class HomeActivity extends AppCompatActivity {
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setAvailableProviders(providers)
+                        .setTheme(R.style.Theme_Certus)
                         .build(),
                 1);
     }
