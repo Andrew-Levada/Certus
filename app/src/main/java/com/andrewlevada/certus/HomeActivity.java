@@ -10,39 +10,22 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
-import androidx.navigation.Navigation;
 import androidx.transition.AutoTransition;
-import androidx.transition.SidePropagation;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
-import androidx.viewpager2.widget.ViewPager2;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.graphics.Point;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AnticipateInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.OvershootInterpolator;
 
 import com.andrewlevada.certus.tools.SimpleInflater;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.zip.Inflater;
-
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
     private int currentHomeFragmentId;
 
     private Point display;
@@ -58,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
 
         // Get screen size
         display = new Point();
@@ -75,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         defaultConstraint = new ConstraintSet();
         defaultConstraint.clone(layout);
         backdropConstraint = new ConstraintSet();
-        backdropConstraint.load(getApplicationContext(), R.layout.activity_main_backdrop);
+        backdropConstraint.load(getApplicationContext(), R.layout.activity_home_backdrop);
 
         // Setup backdrop toolbar
         MaterialToolbar backdropToolbar = findViewById(R.id.backdrop_toolbar);
@@ -92,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
 
         // Process bottom navigation buttons clicks
-        final MainActivity itself = this;
+        final HomeActivity itself = this;
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

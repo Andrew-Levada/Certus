@@ -19,7 +19,6 @@ import com.andrewlevada.certus.logic.lessons.RecyclableLesson;
 import com.andrewlevada.certus.logic.storageunits.Grade;
 import com.andrewlevada.certus.logic.storageunits.Subject;
 import com.andrewlevada.certus.tools.SimpleInflater;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -33,17 +32,17 @@ public class TeachFragment extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<RecyclableLesson> list;
 
-    private MainActivity hostActivity;
+    private HomeActivity hostActivity;
 
     private Handler backdropFillHandler;
     private Runnable backdropFillRunnable;
 
     public TeachFragment() {
-        hostActivity = (MainActivity) getActivity();
+        hostActivity = (HomeActivity) getActivity();
         list = new ArrayList<>();
     }
 
-    public TeachFragment(MainActivity hostActivity) {
+    public TeachFragment(HomeActivity hostActivity) {
         this.hostActivity = hostActivity;
         list = new ArrayList<>();
     }
@@ -54,7 +53,7 @@ public class TeachFragment extends Fragment {
      *
      * @return A new instance of fragment Learn.
      */
-    public static TeachFragment newInstance(MainActivity hostActivity) {
+    public static TeachFragment newInstance(HomeActivity hostActivity) {
         TeachFragment fragment = new TeachFragment(hostActivity);
         return fragment;
     }
