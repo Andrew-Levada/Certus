@@ -28,8 +28,6 @@ import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 import java.util.List;
@@ -88,7 +86,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         // Loading default learn fragment screen
-        loadHomeFragment(LearnFragment.newInstance(this), R.id.navigation_button_learn);
+        loadHomeFragment(new LearnFragment(this), R.id.navigation_button_learn);
 
         // Setup user
         user = User.getInstance();
@@ -104,15 +102,15 @@ public class HomeActivity extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.navigation_button_learn:
-                        fragment = LearnFragment.newInstance(itself);
+                        fragment = new LearnFragment(itself);
                         break;
 
                     case R.id.navigation_button_teach:
-                        fragment = TeachFragment.newInstance(itself);
+                        fragment = new TeachFragment(itself);
                         break;
 
                     case R.id.navigation_button_account:
-                        fragment = AccountFragment.newInstance();
+                        fragment = new AccountFragment();
                         break;
                 }
 
