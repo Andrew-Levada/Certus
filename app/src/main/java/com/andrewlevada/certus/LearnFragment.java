@@ -33,8 +33,8 @@ public class LearnFragment extends Fragment {
 
     private HomeActivity hostActivity;
 
-    private Handler backdropFillHandler;
-    private Runnable backdropFillRunnable;
+    private Handler afterAnimHandler;
+    private Runnable afterAnimRunnable;
 
     public LearnFragment() {
         this.hostActivity = (HomeActivity) getActivity();
@@ -65,25 +65,32 @@ public class LearnFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate fragment view
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.fragment_learn, container, false);
 
+        // Setup recycler view
         recyclerView = (RecyclerView) layout.findViewById(R.id.learn_home_recycler);
         setupRecyclerView();
 
+        // Get data
         fillFakeDataset();
-        //TODO: Request to server to update list array
+        // TODO: Request to server to update list array
 
-        backdropFillRunnable = new Runnable() {
+        // Add actions after fragment switching is finished
+        afterAnimRunnable = new Runnable() {
             @Override
             public void run() {
-                if (hostActivity != null)
-                    hostActivity.requestFAB(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            hostActivity.updateBackdrop(true);
-                        }
-                    });
+                if (hostActivity == null) return;
 
+                // Request fab from activity
+                hostActivity.requestFAB(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        hostActivity.updateBackdrop(true);
+                    }
+                });
+
+                // Request to fill backdrop
                 hostActivity.fillBackdrop(R.layout.backdrop_content_learn, new SimpleInflater.OnViewInflated() {
                     @Override
                     public void inflated(View view) {
@@ -93,15 +100,18 @@ public class LearnFragment extends Fragment {
             }
         };
 
-        backdropFillHandler = new Handler();
-        backdropFillHandler.postDelayed(backdropFillRunnable, 250);
+        // Setup actions after fragment switching is finished
+        afterAnimHandler = new Handler();
+        afterAnimHandler.postDelayed(afterAnimRunnable, 250);
 
         return layout;
     }
 
     @Override
     public void onDestroy() {
-        backdropFillHandler.removeCallbacks(backdropFillRunnable);
+        // If anim is not finished cancel after actions
+        afterAnimHandler.removeCallbacks(afterAnimRunnable);
+
         super.onDestroy();
     }
 
@@ -113,6 +123,7 @@ public class LearnFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
+    @Deprecated
     private void fillFakeDataset() {
         LessonStatus status = new LessonStatus();
         status.setStatus(LessonStatus.STATUS_CHAT);

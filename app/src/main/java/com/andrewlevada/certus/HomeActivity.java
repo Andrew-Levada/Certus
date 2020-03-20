@@ -25,6 +25,11 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+/**
+ * Main ond first activity which appears to user.
+ * Contains {@link LearnFragment}, {@link TeachFragment} and
+ * {@link AccountFragment} tabs. Implements backdrop.
+ */
 public class HomeActivity extends AppCompatActivity {
     private int currentHomeFragmentId;
 
@@ -47,8 +52,9 @@ public class HomeActivity extends AppCompatActivity {
         display = new Point();
         getWindowManager().getDefaultDisplay().getSize(display);
 
+        // Find views by ids
         layout = (ConstraintLayout) findViewById(R.id.home_layout);
-        fabView = (FloatingActionButton) layout.findViewById(R.id.home_fab);
+        fabView = (FloatingActionButton) findViewById(R.id.home_fab);
 
         // Setup backdrop
         backdrop = (ViewGroup) findViewById(R.id.backdrop);
@@ -104,9 +110,13 @@ public class HomeActivity extends AppCompatActivity {
 
     private boolean loadHomeFragment(Fragment fragment, int id) {
         if (fragment != null) {
+            // Remember switching fragment
             currentHomeFragmentId = id;
+
+            // Hide fab. If fragment needs it, it can request it
             fabView.hide();
 
+            // Make transition between fragments
             FragmentTransaction transition = getSupportFragmentManager().beginTransaction();
             transition.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
             transition.replace(R.id.home_fragment_container, fragment);
@@ -120,14 +130,17 @@ public class HomeActivity extends AppCompatActivity {
     public void updateBackdrop(boolean extend) {
         ConstraintSet constraintSet;
 
+        // Load needed layout
         if (extend) constraintSet = backdropConstraint;
         else constraintSet = defaultConstraint;
 
+        // Setup transition
         Transition transition = new AutoTransition();
         transition.setDuration(600);
         if (extend) transition.setInterpolator(new FastOutSlowInInterpolator());
         else transition.setInterpolator(new FastOutLinearInInterpolator());
 
+        // Make transition
         TransitionManager.beginDelayedTransition(layout, transition);
         constraintSet.applyTo(layout);
     }

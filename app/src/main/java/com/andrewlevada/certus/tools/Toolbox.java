@@ -6,7 +6,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+/**
+ * This class contains all kinds of tools
+ * that could be useful during development.
+ */
 public class Toolbox {
+    /**
+     * Finds the last child of given parent.
+     * This child is ether last inflated or simply last in layout.
+     *
+     * @param parent {@link ViewGroup} which's child to find
+     * @return Last child {@link View} or null if parent has no children.
+     */
     @Nullable
     public static View getLastChild(@NonNull ViewGroup parent) {
         for (int i = parent.getChildCount() - 1; i >= 0; i--) {
