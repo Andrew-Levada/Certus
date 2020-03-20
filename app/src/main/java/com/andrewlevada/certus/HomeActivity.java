@@ -1,5 +1,6 @@
 package com.andrewlevada.certus;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -20,10 +21,18 @@ import androidx.transition.AutoTransition;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
+import com.andrewlevada.certus.logic.User;
 import com.andrewlevada.certus.tools.SimpleInflater;
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Main ond first activity which appears to user.
@@ -43,6 +52,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private FloatingActionButton fabView;
 
+    private User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +64,7 @@ public class HomeActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getSize(display);
 
         // Find views by ids
+        BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         layout = (ConstraintLayout) findViewById(R.id.home_layout);
         fabView = (FloatingActionButton) findViewById(R.id.home_fab);
 
@@ -78,7 +90,8 @@ public class HomeActivity extends AppCompatActivity {
         // Loading default learn fragment screen
         loadHomeFragment(LearnFragment.newInstance(this), R.id.navigation_button_learn);
 
-        BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
+        // Setup user
+        user = User.getInstance();
 
         // Process bottom navigation buttons clicks
         final HomeActivity itself = this;
@@ -154,5 +167,39 @@ public class HomeActivity extends AppCompatActivity {
     public void requestFAB(@Nullable View.OnClickListener onClickListener) {
         fabView.show();
         fabView.setOnClickListener(onClickListener);
+    }
+
+    public void requestAuth() {
+        // Choose authentication providers
+        List<AuthUI.IdpConfig> providers = Arrays.asList(
+                new AuthUI.IdpConfig.GoogleBuilder().build());
+        // TODO: Add auth by email and fb
+
+        // Create and launch sign-in intent
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),
+                1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+
+            if (resultCode == RESULT_OK) {
+                // Successfully signed in
+                user.auth();
+            } else {
+                // TODO: Error process
+                // Sign in failed. If response is null the user canceled the
+                // sign-in flow using the back button. Otherwise check
+                // response.getError().getErrorCode() and handle the error.
+            }
+        }
     }
 }

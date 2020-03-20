@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.andrewlevada.certus.logic.User;
 import com.andrewlevada.certus.logic.lessons.FakeLesson;
 import com.andrewlevada.certus.logic.lessons.RecyclableLesson;
 import com.andrewlevada.certus.logic.lessons.storageunits.Grade;
@@ -70,7 +71,12 @@ public class LearnFragment extends Fragment {
 
         // Setup recycler view
         recyclerView = (RecyclerView) layout.findViewById(R.id.learn_home_recycler);
-        setupRecyclerView();
+        setupRecyclerView(new RecyclerBasicAdapter.OnChatOpenRequest() {
+            @Override
+            public void request(int index) {
+                openChatRequest(index);
+            }
+        });
 
         // Get data
         fillFakeDataset();
@@ -115,11 +121,11 @@ public class LearnFragment extends Fragment {
         super.onDestroy();
     }
 
-    private void setupRecyclerView() {
+    private void setupRecyclerView(RecyclerBasicAdapter.OnChatOpenRequest chatRequest) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        RecyclerBasicAdapter adapter = new RecyclerBasicAdapter(recyclerView, list);
+        RecyclerBasicAdapter adapter = new RecyclerBasicAdapter(recyclerView, list, chatRequest);
         recyclerView.setAdapter(adapter);
     }
 
@@ -151,5 +157,17 @@ public class LearnFragment extends Fragment {
         AutoCompleteTextView grades = backdrop.findViewById(R.id.learn_new_dropdown_grades);
         grades.setHint("Классы");
         grades.setAdapter(gradesAdapter);
+    }
+
+    private void openChatRequest(int index) {
+        User user = User.getInstance();
+
+        // Require auth
+        if (user == null || !user.isAuthed()) {
+            if (hostActivity == null) return;
+            hostActivity.requestAuth();
+        }
+
+        // TODO: Open chat
     }
 }

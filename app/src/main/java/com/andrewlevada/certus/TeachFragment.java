@@ -119,7 +119,12 @@ public class TeachFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        RecyclerBasicAdapter adapter = new RecyclerBasicAdapter(recyclerView, list);
+        RecyclerBasicAdapter adapter = new RecyclerBasicAdapter(recyclerView, list, new RecyclerBasicAdapter.OnChatOpenRequest() {
+            @Override
+            public void request(int index) {
+
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
 

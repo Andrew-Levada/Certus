@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.andrewlevada.certus.logic.User;
 import com.andrewlevada.certus.logic.lessons.RecyclableLesson;
 import com.andrewlevada.certus.tools.SimpleInflater;
 
@@ -17,9 +18,12 @@ import java.util.ArrayList;
 public class RecyclerBasicAdapter extends RecyclerView.Adapter<RecyclerBasicAdapter.BasicViewHolder> {
     private ArrayList<RecyclableLesson> dataset;
     private Context context;
+    private OnChatOpenRequest chatRequest;
 
-    public RecyclerBasicAdapter(RecyclerView recyclerView, final ArrayList<RecyclableLesson> dataset) {
+    public RecyclerBasicAdapter(RecyclerView recyclerView, final ArrayList<RecyclableLesson> dataset,
+                                OnChatOpenRequest chatRequest) {
         this.dataset = dataset;
+        this.chatRequest = chatRequest;
         context = recyclerView.getContext();
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
@@ -47,11 +51,11 @@ public class RecyclerBasicAdapter extends RecyclerView.Adapter<RecyclerBasicAdap
     public BasicViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = SimpleInflater.inflate(parent, R.layout.recyclable_lesson_template, false);
 
-        return new BasicViewHolder(item);
+        return new BasicViewHolder(item, chatRequest);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BasicViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final BasicViewHolder holder, final int position) {
         if (context == null) return;
 
         ViewGroup item = (ViewGroup) holder.itemView;
@@ -68,7 +72,12 @@ public class RecyclerBasicAdapter extends RecyclerView.Adapter<RecyclerBasicAdap
         if (!data.getStatus().isChatable()) {
             item.findViewById(R.id.recycler_img_container).setVisibility(View.GONE);
         } else {
-            //TODO: Chat open on click listener
+            item.findViewById(R.id.recycler_img_container).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holder.chatRequest.request(position);
+                }
+            });
         }
     }
 
@@ -77,9 +86,16 @@ public class RecyclerBasicAdapter extends RecyclerView.Adapter<RecyclerBasicAdap
         return dataset.size();
     }
 
-    public class BasicViewHolder extends RecyclerView.ViewHolder {
-        public BasicViewHolder(@NonNull View itemView) {
+    public static class BasicViewHolder extends RecyclerView.ViewHolder {
+        OnChatOpenRequest chatRequest;
+
+        public BasicViewHolder(@NonNull View itemView, OnChatOpenRequest chatRequest) {
             super(itemView);
+            this.chatRequest = chatRequest;
         }
+    }
+
+    public interface OnChatOpenRequest {
+        void request(int index);
     }
 }
