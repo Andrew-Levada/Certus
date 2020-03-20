@@ -1,11 +1,6 @@
 package com.andrewlevada.certus;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.andrewlevada.certus.logic.lessons.FakeLesson;
-import com.andrewlevada.certus.logic.lessons.LessonStatus;
 import com.andrewlevada.certus.logic.lessons.RecyclableLesson;
-import com.andrewlevada.certus.logic.storageunits.Grade;
-import com.andrewlevada.certus.logic.storageunits.Subject;
+import com.andrewlevada.certus.logic.lessons.storageunits.Grade;
+import com.andrewlevada.certus.logic.lessons.storageunits.LessonStatus;
+import com.andrewlevada.certus.logic.lessons.storageunits.Subject;
 import com.andrewlevada.certus.tools.SimpleInflater;
 
 import java.util.ArrayList;
@@ -85,12 +84,12 @@ public class TeachFragment extends Fragment {
                         }
                     });
 
-                    hostActivity.fillBackdrop(R.layout.backdrop_content_teach, new SimpleInflater.OnViewInflated() {
-                        @Override
-                        public void inflated(View view) {
-                            fillBackdrop((ViewGroup) view);
-                        }
-                    });
+                hostActivity.fillBackdrop(R.layout.backdrop_content_teach, new SimpleInflater.OnViewInflated() {
+                    @Override
+                    public void inflated(View view) {
+                        fillBackdrop((ViewGroup) view);
+                    }
+                });
             }
         };
 
@@ -117,8 +116,8 @@ public class TeachFragment extends Fragment {
     private void fillFakeDataset() {
         LessonStatus status = new LessonStatus();
         status.setStatus(LessonStatus.STATUS_CHAT);
-        list.add(new FakeLesson(getContext(), "Водородная связь", status, Subject.CODE_CHEMISTRY));
-        list.add(new FakeLesson(getContext(), "Котология по лапкам", status, Subject.CODE_ASTRONOMY));
+        list.add(new FakeLesson(getContext(), "Водородная связь", status, Subject.CODE_CHEMISTRY, Grade.HIGH_CODE));
+        list.add(new FakeLesson(getContext(), "Котология по лапкам", status, Subject.CODE_ASTRONOMY, Grade.HIGH_CODE));
     }
 
     private void fillBackdrop(ViewGroup backdrop) {
@@ -126,14 +125,14 @@ public class TeachFragment extends Fragment {
                 || backdrop.findViewById(R.id.teach_dropdown_subjects) == null
                 || backdrop.findViewById(R.id.teach_dropdown_grades) == null) return;
 
-        ArrayAdapter subjectsAdapter = new ArrayAdapter(
+        ArrayAdapter<String> subjectsAdapter = new ArrayAdapter<>(
                 getContext(), R.layout.dropdown_menu_popup_item, Subject.getStringArray(getContext()));
 
         AutoCompleteTextView subjects = backdrop.findViewById(R.id.teach_dropdown_subjects);
         subjects.setHint("Предмет");
         subjects.setAdapter(subjectsAdapter);
 
-        ArrayAdapter gradesAdapter = new ArrayAdapter(
+        ArrayAdapter<String> gradesAdapter = new ArrayAdapter<>(
                 getContext(), R.layout.dropdown_menu_popup_item, Grade.getStringArray(getContext()));
 
         AutoCompleteTextView grades = backdrop.findViewById(R.id.teach_dropdown_grades);

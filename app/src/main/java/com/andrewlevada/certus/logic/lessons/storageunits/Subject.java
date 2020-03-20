@@ -1,4 +1,4 @@
-package com.andrewlevada.certus.logic.storageunits;
+package com.andrewlevada.certus.logic.lessons.storageunits;
 
 import android.content.Context;
 
@@ -50,11 +50,11 @@ public class Subject {
     public Subject(@NonNull Context context, int code) {
         this.code = code;
         color = context.getResources().getIntArray(R.array.subjectColors)[code];
-        name = context.getResources().getStringArray(R.array.subjectNames)[code];
+        name = context.getResources().getStringArray(R.array.subject_names)[code];
     }
 
     @NonNull
     public static String[] getStringArray(@NonNull Context context) {
-        return context.getResources().getStringArray(R.array.subjectNames);
+        return context.getResources().getStringArray(R.array.subject_names);
     }
 }

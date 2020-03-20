@@ -1,18 +1,12 @@
 package com.andrewlevada.certus;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.graphics.drawable.Animatable;
-import android.graphics.drawable.Animatable2;
 import android.graphics.drawable.AnimatedVectorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
     private static final long delay = 5000;

@@ -1,5 +1,11 @@
 package com.andrewlevada.certus;
 
+import android.graphics.Point;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,12 +19,6 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import androidx.transition.AutoTransition;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
-
-import android.graphics.Point;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.andrewlevada.certus.tools.SimpleInflater;
 import com.google.android.material.appbar.MaterialToolbar;

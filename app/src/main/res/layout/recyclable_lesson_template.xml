@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="85dp"
@@ -15,7 +14,7 @@
         android:layout_marginEnd="40dp"
         app:layout_constraintEnd_toStartOf="@id/recycler_img_container"
         app:layout_constraintStart_toStartOf="parent">
-        
+
         <TextView
             android:id="@+id/recycler_subject"
             android:layout_width="match_parent"
@@ -25,7 +24,7 @@
             android:letterSpacing="0.2"
             android:textColor="@color/colorOnSurface"
             android:gravity="center_vertical"
-            android:text="SUBJECT"/>
+            android:text="SUBJECT" />
 
         <TextView
             android:id="@+id/recycler_title"
@@ -34,7 +33,7 @@
             android:textSize="16sp"
             android:textColor="@color/colorOnSurfaceHeader"
             android:gravity="bottom"
-            android:text="Really long and important text"/>
+            android:text="Really long and important text" />
 
         <TextView
             android:id="@+id/recycler_status"
@@ -44,7 +43,7 @@
             android:textColor="@color/colorOnSurface"
             android:gravity="center_vertical"
             android:text="Less important text"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp" />
 
     </LinearLayout>
 
@@ -61,14 +60,14 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_chat"
-            android:tint="@color/colorOnSurface"/>
+            android:tint="@color/colorOnSurface" />
 
     </LinearLayout>
-    
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorDivider"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

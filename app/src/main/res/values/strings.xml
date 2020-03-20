@@ -1,7 +1,19 @@
 <resources>
     <string name="app_name">Certus</string>
 
-    <string-array name="subjectNames">
+    <string name="home_nav_learn">Учиться</string>
+    <string name="home_nav_teach">Учить</string>
+    <string name="home_nav_account">Аккаунт</string>
+
+    <string name="lesson_status_search">В процессе поиска…</string>
+    <string name="lesson_status_notime">Время не определено</string>
+    <string name="lesson_status_lesson">Урок</string>
+    <string name="lesson_status_already">уже прошёл</string>
+    <string name="lesson_status_today">сегодня в</string>
+    <string name="lesson_status_tomorrow">завтра в</string>
+    <string name="lesson_status_at">в</string>
+
+    <string-array name="subject_names">
         <item subject="math">Математика</item>
         <item subject="algebra">Алгебра</item>
         <item subject="geometry">Геометрия</item>
@@ -19,7 +31,7 @@
         <item subject="other">Другое</item>
     </string-array>
 
-    <string-array name="gradeNames">
+    <string-array name="grade_names">
         <item>1-4</item>
         <item>5-6</item>
         <item>7-9</item>

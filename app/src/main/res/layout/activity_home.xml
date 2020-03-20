@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_layout"
@@ -18,7 +17,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"/>
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -26,13 +25,13 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:outlineProvider="none"
-        app:itemIconTint="@color/main_navigation_colors"
-        app:itemTextColor="@color/main_navigation_colors"
+        app:itemIconTint="@color/home_navigation_colors"
+        app:itemTextColor="@color/home_navigation_colors"
         app:itemRippleColor="@color/colorPrimaryLight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/main_navigation"
         app:elevation="0dp"
-        android:elevation="0dp"/>
+        android:elevation="0dp" />
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/backdrop_toolbar"
@@ -41,7 +40,7 @@
         android:elevation="0dp"
         android:foregroundTint="@color/colorOnPrimary"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_back"/>
+        app:navigationIcon="@drawable/ic_back" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/home_fab_layout"
@@ -58,7 +57,7 @@
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
             app:srcCompat="@drawable/ic_add"
-            app:elevation="2dp"/>
+            app:elevation="2dp" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

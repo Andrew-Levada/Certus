@@ -1,5 +1,6 @@
 package com.andrewlevada.certus;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -15,9 +16,11 @@ import java.util.ArrayList;
 
 public class RecyclerBasicAdapter extends RecyclerView.Adapter<RecyclerBasicAdapter.BasicViewHolder> {
     private ArrayList<RecyclableLesson> dataset;
+    private Context context;
 
     public RecyclerBasicAdapter(RecyclerView recyclerView, final ArrayList<RecyclableLesson> dataset) {
         this.dataset = dataset;
+        context = recyclerView.getContext();
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
                 new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -49,14 +52,17 @@ public class RecyclerBasicAdapter extends RecyclerView.Adapter<RecyclerBasicAdap
 
     @Override
     public void onBindViewHolder(@NonNull BasicViewHolder holder, int position) {
+        if (context == null) return;
+
         ViewGroup item = (ViewGroup) holder.itemView;
         RecyclableLesson data = dataset.get(position);
 
         ((TextView) item.findViewById(R.id.recycler_title)).setText(data.getTitle());
 
-        ((TextView) item.findViewById(R.id.recycler_status)).setText(data.getStatus().getStatusString());
+        ((TextView) item.findViewById(R.id.recycler_status)).setText(data.getStatus().getStatusString(context));
 
-        ((TextView) item.findViewById(R.id.recycler_subject)).setText(data.getSubject().getName().toUpperCase());
+        String subjectString = data.getSubject().getName().toUpperCase() + " " + data.getGrade().getName();
+        ((TextView) item.findViewById(R.id.recycler_subject)).setText(subjectString);
         ((TextView) item.findViewById(R.id.recycler_subject)).setTextColor(data.getSubject().getColor());
 
         if (!data.getStatus().isChatable()) {
