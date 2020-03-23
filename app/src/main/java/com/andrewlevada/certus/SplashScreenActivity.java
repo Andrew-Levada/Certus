@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
-    private static final long delay = 2400;
+    private static final long delay = 4000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

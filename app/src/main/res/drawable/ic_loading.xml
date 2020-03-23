@@ -3,7 +3,7 @@
     android:width="100dp"
     android:height="200dp"
     android:viewportWidth="100"
-    android:viewportHeight="200"
+    android:viewportHeight="220"
     android:name="vector">
 
     <path
