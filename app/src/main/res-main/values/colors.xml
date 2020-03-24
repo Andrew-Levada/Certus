@@ -23,6 +23,8 @@
 
     <color name="colorDivider">#1D000000</color>
 
+    <color name="colorChatSecond">#ECEFF1</color>
+
     <array name="subjectColors">
         <item subject="math">#EB5757</item>
         <item subject="algebra">#EB5757</item>

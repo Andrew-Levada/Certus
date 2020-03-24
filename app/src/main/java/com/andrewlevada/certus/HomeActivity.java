@@ -119,6 +119,11 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
     private boolean loadHomeFragment(Fragment fragment, int id) {
         if (fragment != null) {
             // Remember switching fragment

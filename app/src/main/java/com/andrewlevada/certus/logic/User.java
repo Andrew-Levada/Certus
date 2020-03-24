@@ -48,7 +48,12 @@ public class User {
     }
 
     private User() {
-        // TODO: Load user data from db or fb
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            firebaseUser = user;
+            isAuthed = true;
+        }
     }
 
     @NonNull

@@ -9,12 +9,17 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
-    private static final long delay = 4000;
+    private static final long delay = 3000;
+
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        intent = new Intent(getApplicationContext(), HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         final ImageView imageView = (ImageView) findViewById(R.id.splash_icon);
         AnimatedVectorDrawable vector = (AnimatedVectorDrawable) imageView.getDrawable();
@@ -24,14 +29,12 @@ public class SplashScreenActivity extends AppCompatActivity {
         loadHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                loadHomeActivity();
+                startHomeActivity();
             }
         }, delay);
     }
 
-    private void loadHomeActivity() {
-        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    private void startHomeActivity() {
         startActivity(intent);
         finish();
     }

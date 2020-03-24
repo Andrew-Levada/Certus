@@ -22,6 +22,14 @@ android {
         }
     }
 
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res-main',
+                    'src/main/res-chat'
+            ]
+        }
+    }
 }
 
 dependencies {

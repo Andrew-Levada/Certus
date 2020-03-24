@@ -13,6 +13,9 @@
     <string name="lesson_status_tomorrow">завтра в</string>
     <string name="lesson_status_at">в</string>
 
+    <string name="message">Сообщение…</string>
+    <string name="chat_nav_info">Информация</string>
+
     <string-array name="subject_names">
         <item subject="math">Математика</item>
         <item subject="algebra">Алгебра</item>

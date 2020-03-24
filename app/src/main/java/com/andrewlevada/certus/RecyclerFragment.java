@@ -1,5 +1,6 @@
 package com.andrewlevada.certus;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -125,10 +126,13 @@ public abstract class RecyclerFragment extends Fragment {
 
         // Require auth
         if (!user.isAuthed()) {
-            if (hostActivity == null) return;
-            hostActivity.requestAuth();
+            if (hostActivity != null) hostActivity.requestAuth();
+            return;
         }
 
-        // TODO: Open chat
+        // TODO: Pass data to chat Intent
+        Intent intent = new Intent(getContext(), ChatActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }
