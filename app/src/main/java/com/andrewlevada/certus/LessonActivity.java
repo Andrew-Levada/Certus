@@ -80,6 +80,8 @@ public class LessonActivity extends AppCompatActivity {
             addText(parent, node, true);
         } else if (type.equals("list")) {
             addList(parent, node);
+        } else if (type.equals("rule")) {
+            addRule(parent, node);
         }
     }
 
@@ -119,6 +121,14 @@ public class LessonActivity extends AppCompatActivity {
 
             i++;
         }
+    }
+
+    private void addRule(ViewGroup parent, Map<String, Object> node) {
+        ViewGroup view = (ViewGroup) SimpleInflater.inflate(parent, R.layout.lp_rule_box);
+
+        if (node.get("v") instanceof Map) process(view, (Map<String, Object>) node.get("v"));
+        else for (Map<String, Object> o : (List<Map<String, Object>>) node.get("v"))
+            process(view, o);
     }
 
     private SpannableStringBuilder getStringBuilder(Object text) {
