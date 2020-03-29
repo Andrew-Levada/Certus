@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
-    private static final long delay = 3000;
+    private static final long delay = 0;
 
     Intent intent;
 
@@ -18,7 +18,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        intent = new Intent(getApplicationContext(), HomeActivity.class);
+        intent = new Intent(getApplicationContext(), LessonActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         final ImageView imageView = (ImageView) findViewById(R.id.splash_icon);

@@ -40,4 +40,11 @@
         <item>7-9</item>
         <item>10-11</item>
     </string-array>
+
+    <string name="test_lp_header">Важный заголовок</string>
+    <string name="test_lp_text">Привет, я супер текст! Как твои дела?</string>
+    <string name="test_lp_list1">Хорошо</string>
+    <string name="test_lp_list2">Отлично</string>
+    <string name="test_lp_list3">Замечательно</string>
+    <string name="test_lp_rule">Это замечательно</string>
 </resources>
