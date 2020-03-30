@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 
 public class LessonActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +55,14 @@ public class LessonActivity extends AppCompatActivity {
 
                 // TODO: Process session options
 
+                int i = 0;
                 for (Map<String, Object> node : document) {
-                    process(lpView, node);
+                    process(lpView, node, i);
+                    i++;
+                }
+
+                for (int j = lpView.getChildCount() - 1; j >= document.size(); j--) {
+                    lpView.removeViewAt(j);
                 }
             }
 
@@ -68,67 +73,154 @@ public class LessonActivity extends AppCompatActivity {
         });
     }
 
-    private void process(ViewGroup parent, Map<String, Object> node) {
+    private void process(ViewGroup parent, Map<String, Object> node, int index) {
+        String type = (String) node.get("t");
+        if (type == null) return;
+
+        // If view has to be created
+        if (parent.getChildCount() >= index)
+            parent.addView(createView(parent, node));
+
+        // If view doesn't need any update
+        if (getHashCode(parent.getChildAt(index)) == getHashCode(node)) return;
+
+        if (parent.getChildAt(index).getTag().equals(type)) {
+            // If view updates content
+            updateView(parent.getChildAt(index), node);
+        } else {
+            // If view needs to be replaced
+            parent.removeViewAt(index);
+            parent.addView(createView(parent, node), index);
+        }
+    }
+
+    private View createView(ViewGroup parent, Map<String, Object> node) {
+        View view = null;
+        String type = (String) node.get("t");
+
+        if (type.equals("text")) {
+            view = addText(parent, node, false);
+        } else if (type.equals("block")) {
+            view = addBlock(parent, node);
+        } else if (type.equals("header")) {
+            view = addText(parent, node, true);
+        } else if (type.equals("list")) {
+            view = addList(parent, node);
+        } else if (type.equals("rule")) {
+            view = addRule(parent, node);
+        }
+
+        return view;
+    }
+
+    private void updateView(View view, Map<String, Object> node) {
         String type = (String) node.get("t");
         if (type == null) return;
 
         if (type.equals("text")) {
-            addText(parent, node, false);
+            fillText((TextView) view, node);
         } else if (type.equals("block")) {
-            addBlock(parent, node);
+            fillBlock((ViewGroup) view, node);
         } else if (type.equals("header")) {
-            addText(parent, node, true);
+            fillText((TextView) view, node);
         } else if (type.equals("list")) {
-            addList(parent, node);
+            fillList((ViewGroup) view, node);
         } else if (type.equals("rule")) {
-            addRule(parent, node);
+            fillRule((ViewGroup) view, node);
         }
     }
 
-    private void addText(ViewGroup parent, Map<String, Object> node, boolean isHeader) {
+    private View addText(ViewGroup parent, Map<String, Object> node, boolean isHeader) {
+        TextView view;
+        if (isHeader) view = (TextView) SimpleInflater.inflate(parent, R.layout.lp_header, false);
+        else view = (TextView) SimpleInflater.inflate(parent, R.layout.lp_text, false);
+
+        fillText(view, node);
+
+        return view;
+    }
+
+    private View addBlock(ViewGroup parent, Map<String, Object> node) {
+        ViewGroup view = (ViewGroup) SimpleInflater.inflate(parent, R.layout.lp_block, false);
+        fillBlock(view, node);
+
+        return view;
+    }
+
+    private View addList(ViewGroup parent, Map<String, Object> node) {
+        ViewGroup view = (ViewGroup) SimpleInflater.inflate(parent, R.layout.lp_block, false);
+        view.setTag("list");
+        fillList(view, node);
+
+        return view;
+    }
+
+    private View addRule(ViewGroup parent, Map<String, Object> node) {
+        ViewGroup view = (ViewGroup) SimpleInflater.inflate(parent, R.layout.lp_rule_box, false);
+        fillRule(view, node);
+
+        return view;
+    }
+
+    private void fillText(TextView view, Map<String, Object> node) {
         Object text = node.get("v");
         SpannableStringBuilder stringBuilder = getStringBuilder(text);
-
-        TextView view;
-        if (isHeader) view = (TextView) SimpleInflater.inflate(parent, R.layout.lp_header);
-        else view = (TextView) SimpleInflater.inflate(parent, R.layout.lp_text);
-
         view.setText(stringBuilder);
     }
 
-    private void addBlock(ViewGroup parent, Map<String, Object> node) {
-        ViewGroup view = (ViewGroup) SimpleInflater.inflate(parent, R.layout.lp_block);
+    private void fillBlock(ViewGroup view, Map<String, Object> node) {
+        int i = 0;
+        for (Map<String, Object> o : (List<Map<String, Object>>) node.get("v")) {
+            process(view, o, i);
+            i++;
+        }
 
-        for (Map<String, Object> o : (List<Map<String, Object>>) node.get("v")) process(view, o);
+        for (int j = view.getChildCount() - 1; j >= ((List) node.get("v")).size(); j--) {
+            view.removeViewAt(j);
+        }
     }
 
-    private void addList(ViewGroup parent, Map<String, Object> node) {
-        ViewGroup view = (ViewGroup) SimpleInflater.inflate(parent, R.layout.lp_block);
+    private void fillList(ViewGroup view, Map<String, Object> node) {
         String style = (String) node.get("s");
         if (style == null) style = "bullet";
 
-        int i = 1;
+        if (view.getChildCount() > 0 && !view.getChildAt(0).getTag().equals(style)) {
+            for (int i = view.getChildCount() - 1; i >= 0; i--)
+                view.removeViewAt(i);
+        }
+
+        int i = 0;
         for (Object o : (List) node.get("v")) {
             View v = null;
-            if (style.equals("bullet")) v = SimpleInflater.inflate(view, R.layout.lp_list_bullet);
+            if (i < view.getChildCount()) v = view.getChildAt(i);
+            else if (style.equals("bullet"))
+                v = SimpleInflater.inflate(view, R.layout.lp_list_bullet);
             else if (style.equals("num")) v = SimpleInflater.inflate(view, R.layout.lp_list_num);
             if (v == null) return;
 
             SpannableStringBuilder stringBuilder = getStringBuilder(o);
             ((TextView) v.findViewById(R.id.lp_list_text)).setText(stringBuilder);
 
-            if (style.equals("num")) ((TextView) v.findViewById(R.id.lp_list_num)).setText(i + ".");
+            if (style.equals("num"))
+                ((TextView) v.findViewById(R.id.lp_list_num)).setText((i + 1) + ".");
 
             i++;
         }
+
+        for (int j = view.getChildCount() - 1; j > i; j--)
+            view.removeViewAt(j);
     }
 
-    private void addRule(ViewGroup parent, Map<String, Object> node) {
-        ViewGroup view = (ViewGroup) SimpleInflater.inflate(parent, R.layout.lp_rule_box);
+    private void fillRule(ViewGroup view, Map<String, Object> node) {
+        int i = 0;
+        for (Map<String, Object> o : (List<Map<String, Object>>) node.get("v")) {
+            process(view, o, i);
+            i++;
+        }
 
-        if (node.get("v") instanceof Map) process(view, (Map<String, Object>) node.get("v"));
-        else for (Map<String, Object> o : (List<Map<String, Object>>) node.get("v"))
-            process(view, o);
+        for (int j = view.getChildCount() - 1; j >= ((List) node.get("v")).size(); j--) {
+            view.removeViewAt(j);
+        }
     }
 
     private SpannableStringBuilder getStringBuilder(Object text) {
@@ -162,5 +254,71 @@ public class LessonActivity extends AppCompatActivity {
         }
 
         return stringBuilder;
+    }
+
+    private int getHashCode(View view) {
+        String type = (String) view.getTag();
+        int hash = type.hashCode();
+
+        if (type.equals("text")) {
+            hash ^= ((TextView) view).getText().hashCode();
+
+        } else if (type.equals("block")) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++)
+                hash ^= getHashCode(((ViewGroup) view).getChildAt(i));
+
+        } else if (type.equals("header")) {
+            hash ^= ((TextView) view).getText().hashCode();
+
+        } else if (type.equals("list")) {
+            if (((ViewGroup) view).getChildCount() == 0) return hash;
+
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++)
+                hash ^= getHashCode(((ViewGroup) view).getChildAt(i));
+
+            String style = (String) ((ViewGroup) view).getChildAt(0).getTag();
+            hash ^= style.hashCode();
+
+        } else if (type.equals("rule")) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++)
+                hash ^= getHashCode(((ViewGroup) view).getChildAt(i));
+        }
+
+        return hash;
+    }
+
+    private int getHashCode(Map<String, Object> node) {
+        String type = (String) node.get("t");
+        int hash = type.hashCode();
+
+        if (type.equals("text")) {
+            hash ^= getStringBuilder(node.get("v")).hashCode();
+
+        } else if (type.equals("block")) {
+            List<Map<String, Object>> list = (List<Map<String, Object>>) node.get("v");
+            for (int i = 0; i < list.size(); i++)
+                hash ^= getHashCode(list.get(i));
+
+        } else if (type.equals("header")) {
+            hash ^= getStringBuilder(node.get("v")).hashCode();
+
+        } else if (type.equals("list")) {
+            List<Object> list = (List<Object>) node.get("v");
+
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i) instanceof String) hash ^= list.get(i).hashCode();
+                else hash ^= getHashCode((Map<String, Object>) list.get(i));
+            }
+
+            String style = (String) node.get("s");
+            hash ^= style.hashCode();
+
+        } else if (type.equals("rule")) {
+            List<Map<String, Object>> list = (List<Map<String, Object>>) node.get("v");
+            for (int i = 0; i < list.size(); i++)
+                hash ^= getHashCode(list.get(i));
+        }
+
+        return hash;
     }
 }

@@ -18,7 +18,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        intent = new Intent(getApplicationContext(), LessonActivity.class);
+        intent = new Intent(getApplicationContext(), lpDebugActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         final ImageView imageView = (ImageView) findViewById(R.id.splash_icon);

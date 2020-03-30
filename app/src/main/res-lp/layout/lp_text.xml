@@ -5,4 +5,5 @@
     android:textColor="@color/colorOnSurface"
     android:fontFamily="@font/roboto_slab_regular"
     android:textSize="16sp"
-    android:layout_marginBottom="8dp" />
+    android:layout_marginBottom="8dp"
+    android:tag="text" />
