@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Certus">
-        <activity android:name=".lpDebugActivity"></activity>
-        <activity android:name=".LessonActivity" />
+        <activity android:name=".TeacherLessonActivity"></activity>
+        <activity android:name=".lpDebugActivity" />
+        <activity android:name=".StudentLessonActivity" />
         <activity android:name=".ChatActivity" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>

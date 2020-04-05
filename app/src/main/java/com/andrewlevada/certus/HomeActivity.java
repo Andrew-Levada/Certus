@@ -40,8 +40,6 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity {
     private int currentHomeFragmentId;
 
-    private Point display;
-
     private ConstraintLayout layout;
     private ViewGroup backdrop;
 
@@ -57,17 +55,15 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        // Get screen size
-        display = new Point();
-        getWindowManager().getDefaultDisplay().getSize(display);
-
         // Find views by ids
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         layout = (ConstraintLayout) findViewById(R.id.home_layout);
         fabView = (FloatingActionButton) findViewById(R.id.home_fab);
+        backdrop = (ViewGroup) findViewById(R.id.backdrop);
 
         // Setup backdrop
-        backdrop = (ViewGroup) findViewById(R.id.backdrop);
+        Point display = new Point();
+        getWindowManager().getDefaultDisplay().getSize(display);
         backdrop.getLayoutParams().height = display.y;
 
         // Setup ConstraintSets for backdrop animations
